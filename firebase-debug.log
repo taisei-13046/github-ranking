@@ -1,0 +1,82 @@
+[debug] [2021-10-30T07:48:40.795Z] ----------------------------------------------------------------------
+[debug] [2021-10-30T07:48:40.801Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2021-10-30T07:48:40.803Z] CLI Version:   9.21.0
+[debug] [2021-10-30T07:48:40.803Z] Platform:      linux
+[debug] [2021-10-30T07:48:40.803Z] Node Version:  v16.13.0
+[debug] [2021-10-30T07:48:40.804Z] Time:          Sat Oct 30 2021 07:48:40 GMT+0000 (Coordinated Universal Time)
+[debug] [2021-10-30T07:48:40.804Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-10-30T07:48:40.863Z] Field ".emulators.auth.port" in "firebase.json" is possibly invalid: should be number
+[debug] [2021-10-30T07:48:40.872Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-10-30T07:48:40.873Z] > authorizing via signed-in user (taisei-13046@au.com)
+[info] i  emulators: Starting emulators: auth, firestore, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore, hosting"}}
+[debug] [2021-10-30T07:48:40.919Z] [hub] writing locator at /tmp/hub-github-rankiing.json
+[debug] [2021-10-30T07:48:40.970Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2021-10-30T07:48:40.970Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-10-30T07:48:40.971Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/root/.cache/firebase/emulators/cloud-firestore-emulator-v1.13.1.jar","--host","0.0.0.0","--port",8080,"--rules","/app/github-ranking/firestore.rules"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/root/.cache/firebase/emulators/cloud-firestore-emulator-v1.13.1.jar\",\"--host\",\"0.0.0.0\",\"--port\",8080,\"--rules\",\"/app/github-ranking/firestore.rules\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2021-10-30T07:48:44.406Z] Oct 30, 2021 7:48:44 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://0.0.0.0:42341
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Oct 30, 2021 7:48:44 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://0.0.0.0:42341\n"}}
+[debug] [2021-10-30T07:48:44.551Z] API endpoint: http://0.0.0.0:8080
+ {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://0.0.0.0:8080\n"}}
+[debug] [2021-10-30T07:48:44.553Z] If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=0.0.0.0:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=0.0.0.0:8080\n\nDev App Server is now running.\n\n"}}
+[debug] [2021-10-30T07:48:48.990Z] > refreshing access token with scopes: []
+[debug] [2021-10-30T07:48:48.993Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-10-30T07:48:49.196Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sat, 30 Oct 2021 07:48:49 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-10-30T07:48:49.214Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/github-rankiing/sites 
+[debug] [2021-10-30T07:48:50.338Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/github-rankiing/sites 200
+[debug] [2021-10-30T07:48:50.339Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/github-rankiing/sites {"sites":[{"name":"projects/305346849241/sites/github-rankiing","defaultUrl":"https://github-rankiing.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2021-10-30T07:48:50.341Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/github-rankiing/webApps/-/config [none]
+[debug] [2021-10-30T07:48:51.807Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/github-rankiing/webApps/-/config 200
+[debug] [2021-10-30T07:48:51.808Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/github-rankiing/webApps/-/config {"projectId":"github-rankiing","appId":"1:305346849241:web:bd56a57540faa9205d51c8","storageBucket":"github-rankiing.appspot.com","locationId":"us-central","apiKey":"AIzaSyAMPpPiO7V5dLmFyyvkgehB6dgfJFGnLOA","authDomain":"github-rankiing.firebaseapp.com","messagingSenderId":"305346849241"}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[debug] [2021-10-30T07:48:51.888Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-10-30T07:48:51.889Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2021-10-30T07:48:51.890Z] Starting Emulator UI with command {"binary":"node","args":["/root/.cache/firebase/emulators/ui-v1.6.4/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/root/.cache/firebase/emulators/ui-v1.6.4/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2021-10-30T07:48:52.060Z] Web / API server started at 0.0.0.0:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 0.0.0.0:4000\n"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://0.0.0.0:4000                  │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬───────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI           │
+├────────────────┼────────────────┼───────────────────────────────┤
+│ Authentication │ 0.0.0.0:9099   │ http://0.0.0.0:4000/auth      │
+├────────────────┼────────────────┼───────────────────────────────┤
+│ Firestore      │ 0.0.0.0:8080   │ http://0.0.0.0:4000/firestore │
+├────────────────┼────────────────┼───────────────────────────────┤
+│ Hosting        │ localhost:5000 │ n/a                           │
+└────────────────┴────────────────┴───────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2021-10-30T07:50:42.198Z] Oct 30, 2021 7:50:42 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Oct 30, 2021 7:50:42 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2021-10-30T07:50:43.894Z] Oct 30, 2021 7:50:43 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Oct 30, 2021 7:50:43 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\nINFO: Connected to new websocket client\n"}}
+[debug] [2021-10-30T07:50:44.732Z] Oct 30, 2021 7:50:44 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Oct 30, 2021 7:50:44 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\nINFO: Websocket client disconnected\n"}}
+[debug] [2021-10-30T07:50:45.618Z] Oct 30, 2021 7:50:45 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Oct 30, 2021 7:50:45 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2021-10-30T07:50:47.237Z] Oct 30, 2021 7:50:47 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Oct 30, 2021 7:50:47 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\nINFO: Connected to new websocket client\n"}}

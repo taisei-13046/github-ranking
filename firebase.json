@@ -12,6 +12,9 @@
       "enabled": true,
       "host": "0.0.0.0",
       "port": "4000"
+    },
+    "hosting": {
+      "port": 5000
     }
   },
   "hosting": {
@@ -27,5 +30,9 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
