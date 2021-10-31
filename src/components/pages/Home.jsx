@@ -13,7 +13,8 @@ const useStyles = makeStyles({
 	},
 })
 
-export const Home = () => {
+export const Home = (props) => {
+	const {flag, setFlag} = props
 	const classes = useStyles();
 	const {githubId, setGithubId} = useContext(UserGithubContext)
 
@@ -22,6 +23,7 @@ export const Home = () => {
 		if (githubId) {
 			await auth.signInWithPopup(githubProvider)
 			.catch((err) => alert(err.message));
+			setFlag(true)
 		} else {
 			alert('github ID を入力してください')
 		}
@@ -37,7 +39,7 @@ export const Home = () => {
 					<div>Githubのコミット履歴で</div>
 					<div>友人と競いましょう！</div>
 				</div>
-				<TextField id="github-id" label="github-id" variant="outlined" onChange={(e) => setGithubId(e.target.value)} />
+				<TextField id="github-id" label="github-id" variant="outlined" value={githubId} onChange={(e) => setGithubId(e.target.value)} />
 				<div>
 					<GithubLoginButton
 						style={{width: "300px"}}
