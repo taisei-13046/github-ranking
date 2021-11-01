@@ -24,6 +24,10 @@ export const Room = () => {
 			setCreateRoomName("")
 			//history.push('/ranking')
 		})
+		setRoomInfo({
+			roomName: createRoomName,
+			members: [githubId]
+		})
 	}
 
 	const onClickSearchRoom = async () => {
@@ -37,7 +41,7 @@ export const Room = () => {
 			  if (searchRoomName === roomData.roomName && roomData.invitePeople.includes(githubId)) {
 				  setRoomInfo({
 					roomName: roomData.roomName,
-					member: roomData.invitePeople
+					members: [roomData.invitePeople]
 				  })
 				history.push('/ranking')
 			  }
