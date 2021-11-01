@@ -19,7 +19,6 @@ export const Home = (props) => {
 	const {githubId, setGithubId} = useContext(UserGithubContext)
 
 	const onClickLoginGithub = async () => {
-		console.log(githubId)
 		if (githubId) {
 			await auth.signInWithPopup(githubProvider)
 			.catch((err) => alert(err.message));

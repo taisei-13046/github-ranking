@@ -21,6 +21,7 @@ export const Header = () => {
   const {setUserEmail} = useContext(UserEmailContext)
   const onClickLogoutButton = () => {
 	setUserEmail("")
+	history.push('/')
   }
   const onClickHomeButton = () => {
 	  history.push('/')
