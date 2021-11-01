@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 })
 
 export const Home = (props) => {
-	const {flag, setFlag} = props
+	const {setFlag} = props
 	const classes = useStyles();
 	const {githubId, setGithubId} = useContext(UserGithubContext)
 
