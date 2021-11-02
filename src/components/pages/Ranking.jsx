@@ -1,61 +1,82 @@
 import React, { useContext, useEffect, useState } from "react";
-import { RoomInfoContext } from "../../App";
+import { RoomInfoContext, UserGithubContext } from "../../App";
 import { Header } from "../organisms/Header";
 import axios from "axios";
-import { Button, TextField } from "@mui/material";
-import {db} from "../../firebase"
+import Grid from '@mui/material/Grid';
+import { makeStyles } from '@mui/styles';
+import { RankingTable } from "../organisms/RankingTable";
+import { InvitePeople } from "../organisms/InvitePeople"
+
+const useStyles = makeStyles({
+  rankingTable: {
+    margin: "30px",
+  },
+  inviteTextandButton: {
+    marginTop: "30px",
+  }
+})
+
 
 export const Ranking = () => {
-  const [allCommitCount, setAllCommitCount] = useState({});
-  const [invitePeopleName, setInvitePeopleName] = useState("");
-  const { roomInfo, setRoomInfo } = useContext(RoomInfoContext);
+  const [githubData, setGithubData] = useState([]);
+  const { roomInfo } = useContext(RoomInfoContext);
+  const {githubId} = useContext(UserGithubContext)
+  const classes = useStyles()
+
+  var oneWeekAgoDate = new Date()
+  oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - 7)
 
   useEffect(() => {
-	if (roomInfo.members) {
-    roomInfo.members.map((member) => {
-      console.log(member);
-      axios
-        .get(
-          `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?per_page=100`
-        )
-        .then((res) => {
-          console.log(res);
-          console.log(res.data.total_count);
-          setAllCommitCount({
-            ...allCommitCount,
-            member: res.data.total_count,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
+    const GetGithubData = async () => {
+    if (roomInfo.members) {
+        roomInfo.members.map( async (member) => {
+          axios
+            .get(
+              `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?per_page=100`
+            )
+            .then(async (res) => {
+              console.log(res);
+              //console.log(res.data.items[0].commit.committer.date)
+              console.log(new Date(res.data.items[0].commit.committer.date).getTime() >= oneWeekAgoDate.getTime())
+              console.log(res.data.items)
+              console.log(oneWeekAgoDate)
+              //const oneWeekCommitCount = await res.data.items.filter(item => new Date(item.commit.committer.date).getTime() <= oneWeekAgoDate.getTime()).length
+              //console.log(oneWeekCommitCount)
+              setGithubData([
+                {
+                  githubID: githubId,
+                  totalCommitCount: res.data.total_count,
+                  //oneWeekCommitCount: oneWeekCommitCount,
+                  lastCommitDate: res.data.items[0].commit.committer.date,
+                },
+                ...githubData
+              ])
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         });
-    });
-	}
+        GetGithubData()
+      }
+    }
   }, []);
 
-  const onClickInvitePeople = async () => {
-	setRoomInfo({
-		roomName: roomInfo.roomName,
-		members: roomInfo.members.push(invitePeopleName)
-	})
-	const docRef = db.collection("room").doc(`${roomInfo.roomName}`);
-	await docRef.set({
-		roomName: roomInfo.roomName,
-		invitePeople: roomInfo.members
-	})
-  }
 
   return (
     <div>
       <Header />
-      <TextField
-        id="invite-member-search"
-        label="Outlined"
-        variant="outlined"
-		value={invitePeopleName}
-        onChange={(e) => setInvitePeopleName(e.target.value)}
-      />
-      <Button variant="contained" onClick={onClickInvitePeople}>招待</Button>
+      <Grid container >
+        <Grid item xs={10} >
+          <div className={classes.rankingTable}>
+            <RankingTable />
+          </div>
+        </Grid>
+        <Grid item xs={2}>
+          <div className={classes.inviteTextandButton}>
+            <InvitePeople />
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -25,8 +25,6 @@ const App = () => {
     };
   }, [setUserEmail]);
 
-  console.log(userEmail)
-
   return (
     <RoomInfoContext.Provider value={{roomInfo, setRoomInfo}}>
       <UserEmailContext.Provider value={{userEmail, setUserEmail}}>
