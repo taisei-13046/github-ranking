@@ -26,43 +26,29 @@ export const Ranking = () => {
   oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - 7)
 
   useEffect(() => {
-    const GetGithubData = async () => {
+    const GetGithubData = () => {
     if (roomInfo.members) {
       const tmpArray = []
         roomInfo.members.map(async (member) => {
           await axios
             .get(
-              `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?per_page=100`
+              `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc`
             )
             .then(async (res) => {
-              console.log(res);
-              //console.log(res.data.items[0].commit.committer.date)
-              //console.log(new Date(res.data.items[0].commit.committer.date).getTime() >= oneWeekAgoDate.getTime())
-              //console.log(res.data.items)
-              //console.log(oneWeekAgoDate)
-              //const oneWeekCommitCount = await res.data.items.filter(item => new Date(item.commit.committer.date).getTime() <= oneWeekAgoDate.getTime()).length
-              //console.log(oneWeekCommitCount)
+              console.log(res)
+              const oneWeekCommitCount = await res.data.items.filter(item => new Date(item.commit.committer.date).getTime() <= oneWeekAgoDate.getTime()).length
               tmpArray.push({
                   githubID: res.data.items[0].commit.committer.name,
                   totalCommitCount: res.data.total_count,
-                  //oneWeekCommitCount: oneWeekCommitCount,
+                  oneWeekCommitCount: oneWeekCommitCount,
                   lastCommitDate: res.data.items[0].commit.committer.date,
               })
-              //setGithubData([
-              //  {
-              //    githubID: res.data.items[0].commit.committer.name,
-              //    totalCommitCount: res.data.total_count,
-              //    //oneWeekCommitCount: oneWeekCommitCount,
-              //    lastCommitDate: res.data.items[0].commit.committer.date,
-              //  },
-              //  ...githubData
-              //])
-              console.log(tmpArray)
             })
             .catch((error) => {
               console.log(error);
             });
         });
+        console.log(tmpArray)
         setGithubData(tmpArray)
       }
     }
@@ -77,7 +63,7 @@ export const Ranking = () => {
       <Grid container >
         <Grid item xs={10} >
           <div className={classes.rankingTable}>
-            <RankingTable />
+            <RankingTable githubData={githubData}/>
           </div>
         </Grid>
         <Grid item xs={2}>
