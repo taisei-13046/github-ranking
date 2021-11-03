@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles"
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RoomInfoContext } from "../../App";
 import { db } from "../../firebase";
 
@@ -22,18 +22,18 @@ export const InvitePeople = () => {
   const { roomInfo, setRoomInfo } = useContext(RoomInfoContext);
   const classes = useStyle()
 
-  const onClickInvitePeople = async () => {
+  const onClickInvitePeople = () => {
     setRoomInfo({
       roomName: roomInfo.roomName,
       members: roomInfo.members.push(invitePeopleName),
     });
+    console.log(roomInfo)
     const docRef = db.collection("room").doc(`${roomInfo.roomName}`);
-    await docRef.set({
+    docRef.set({
       roomName: roomInfo.roomName,
       invitePeople: roomInfo.members,
     });
     setInvitePeopleName("");
-    console.log(githubData);
   };
 
   return (
@@ -54,9 +54,9 @@ export const InvitePeople = () => {
       </Button>
 	  <h3>Member</h3>
 	  {
-      roomInfo.members.map((member) => [
-        <div className={classes.memberList}>{member}</div>
-      ])
+        roomInfo.members.map((member, index) => [
+          <div className={classes.memberList} key={index}>{member}</div>
+        ])
     }
     </div>
   );

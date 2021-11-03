@@ -43,7 +43,6 @@ const rows = [
 
 export const RankingTable = (props) => {
   const {githubData} = props
-  console.log(githubData)
 	return (
 		<div>
 			<TableContainer component={Paper}>
