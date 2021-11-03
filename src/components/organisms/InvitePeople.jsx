@@ -17,24 +17,25 @@ const useStyle = makeStyles({
 })
 
 export const InvitePeople = () => {
-  const [githubData, setGithubData] = useState([]);
-  const [invitePeopleName, setInvitePeopleName] = useState("");
-  const { roomInfo, setRoomInfo } = useContext(RoomInfoContext);
   const classes = useStyle()
+  const [invitePeopleName, setInvitePeopleName] = useState("")
+	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
 
-  const onClickInvitePeople = () => {
+  const onClickInvite = () => {
+    roomInfo.members.push(invitePeopleName)
     setRoomInfo({
       roomName: roomInfo.roomName,
-      members: roomInfo.members.push(invitePeopleName),
-    });
-    console.log(roomInfo)
+			members: roomInfo.members
+    })
     const docRef = db.collection("room").doc(`${roomInfo.roomName}`);
     docRef.set({
       roomName: roomInfo.roomName,
       invitePeople: roomInfo.members,
     });
     setInvitePeopleName("");
-  };
+  }
+
+  console.log(roomInfo)
 
   return (
     <div className={classes.textAndButton}>
@@ -44,20 +45,18 @@ export const InvitePeople = () => {
 				id="invite-member-search"
 				label="github-id"
 				variant="outlined"
-				value={invitePeopleName}
-				onChange={(e) => setInvitePeopleName(e.target.value)}
+        value={invitePeopleName}
+        onChange={(e) => setInvitePeopleName(e.target.value)}
 			/>
 		</div>
 	  <br />
-      <Button variant="contained" onClick={onClickInvitePeople}>
+      <Button variant="contained" onClick={onClickInvite}>
         招待
       </Button>
 	  <h3>Member</h3>
-	  {
-        roomInfo.members.map((member, index) => [
-          <div className={classes.memberList} key={index}>{member}</div>
-        ])
-    }
+    {roomInfo.members.map((member) => (
+      <div>{member}</div>
+    ))}
     </div>
   );
 };
