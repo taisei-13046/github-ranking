@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,7 +7,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { RoomInfoContext, UserGithubContext } from "../../App";
+import { RoomInfoContext } from "../../App";
+import { makeStyles } from '@mui/styles';
+import axios from 'axios';
+import dateFormat from "dateformat";
+
+const useStyles = makeStyles({
+  tableStyle: {
+    height: "75px"
+  },
+})
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,27 +38,47 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+export const RankingTable = () => {
+	const {roomInfo} = useContext(RoomInfoContext)
+  const [githubData, setGithubData] = useState([]);
+  const classes = useStyles()
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+  var oneWeekAgoDate = new Date()
+  oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - 7)
 
-export const RankingTable = (props) => {
-	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
-  const {githubData} = props
+  useEffect(() => {
+    const GetGithubData = async () => {
+    if (roomInfo.members) {
+      const tmpArray = []
+        roomInfo.members.map(async (member) => {
+          await axios
+            .get(
+              `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc`
+            )
+            .then((res) => {
+              console.log(res)
+              const oneWeekCommitCount = res.data.items.filter(item => new Date(item.commit.committer.date).getTime() <= oneWeekAgoDate.getTime()).length
+              tmpArray.push({
+                  githubId: res.data.items[0].author.login,
+                  totalCommitCount: res.data.total_count,
+                  oneWeekCommitCount: oneWeekCommitCount,
+                  lastCommitDate: dateFormat(res.data.items[0].commit.committer.date, "fullDate"),
+              })
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+        setGithubData(tmpArray)
+      }
+    }
+    GetGithubData()
+  }, [roomInfo.members]);
 
-  console.log(githubData)
-  if (githubData.oneWeekCommitCount) {
-    githubData = githubData.oneWeekCommitCount.sort((a, b) => b - a)
-    console.log(githubData.oneWeekCommitCount.sort((a, b) => b - a))
-  }
+  //if (githubData.oneWeekCommitCount) {
+  //  githubData = githubData.oneWeekCommitCount.sort((a, b) => b - a)
+  //  console.log(githubData.oneWeekCommitCount.sort((a, b) => b - a))
+  //}
   console.log(githubData)
 	return (
 		<div>
@@ -58,8 +87,8 @@ export const RankingTable = (props) => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>roomName: {roomInfo.roomName}</StyledTableCell>
-                  <StyledTableCell align="right">totalCommit</StyledTableCell>
                   <StyledTableCell align="right">weeklyCommit</StyledTableCell>
+                  <StyledTableCell align="right">totalCommit</StyledTableCell>
                   <StyledTableCell align="right">lastCommitDate</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -67,7 +96,7 @@ export const RankingTable = (props) => {
                 {githubData.map((data, index) => (
                   <StyledTableRow key={data.githubId}>
                     {index < 3 ? (
-                      <StyledTableCell component="th" scope="row">
+                      <StyledTableCell component="th" scope="row" className={classes.tableStyle}>
                         {index+1}位: {data.githubId}
                       </StyledTableCell>
                     ): (
@@ -75,15 +104,14 @@ export const RankingTable = (props) => {
                         {data.githubId}
                       </StyledTableCell>
                     )}
-                    <StyledTableCell align="right">{data.totalCommitCount}</StyledTableCell>
                     <StyledTableCell align="right">{data.oneWeekCommitCount}</StyledTableCell>
+                    <StyledTableCell align="right">{data.totalCommitCount}</StyledTableCell>
                     <StyledTableCell align="right">{data.lastCommitDate}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-
 		</div>
 	)
 }
