@@ -36,8 +36,6 @@ export const InvitePeople = () => {
     console.log(githubData);
   };
 
-  console.log(roomInfo.members)
-
   return (
     <div className={classes.textAndButton}>
 		<h2>Invite People</h2>
@@ -55,9 +53,11 @@ export const InvitePeople = () => {
         招待
       </Button>
 	  <h3>Member</h3>
-	  {roomInfo.members.map((member) => [
-			<div className={classes.memberList}>{member}</div>
-	  ])}
+	  {
+      roomInfo.members.map((member) => [
+        <div className={classes.memberList}>{member}</div>
+      ])
+    }
     </div>
   );
 };
