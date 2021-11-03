@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles"
 import React, { useContext, useEffect, useState } from "react";
 import { RoomInfoContext } from "../../App";
 import { db } from "../../firebase";
+import { DeleteAlert } from "../moleclues/DeleteAlert";
 
 const useStyle = makeStyles({
 	textAndButton: {
@@ -17,7 +18,10 @@ const useStyle = makeStyles({
 	},
 	memberListButton: {
     contrastText: "black"
-	}
+	},
+  memberStyle: {
+    marginTop: "100px"
+  }
 })
 
 export const InvitePeople = () => {
@@ -40,21 +44,6 @@ export const InvitePeople = () => {
     setInvitePeopleName("");
   }
 
-  const onClickDeleteYes = () => {
-    const deleteNameIndex = roomInfo.members.indexOf(deleteAlertName)
-    roomInfo.members.splice(deleteNameIndex, 1)
-    setRoomInfo({
-      roomName: roomInfo.roomName,
-			members: roomInfo.members
-    })
-    const docRef = db.collection("room").doc(`${roomInfo.roomName}`);
-    docRef.set({
-      roomName: roomInfo.roomName,
-      invitePeople: roomInfo.members,
-    });
-    setDeleteAlertName("")
-  }
-
   return (
     <div className={classes.textAndButton}>
       <h2>Invite People</h2>
@@ -69,21 +58,17 @@ export const InvitePeople = () => {
 		</div>
 	  <br />
       <Button variant="contained" onClick={onClickInvite}>
-        招待
+        Invite
       </Button>
-	  <h3>Member</h3>
+	  <h2 className={classes.memberStyle}>Member</h2>
     {deleteAlertName ? (
-      <Alert severity="success" color="info">
-        <div>do you want to delete this member?</div>
-        <Button size="small" onClick={onClickDeleteYes}>Yes</Button>
-        <Button size="small" onClick={() => setDeleteAlertName("")} >No</Button>
-      </Alert>
+      <DeleteAlert deleteAlertName={deleteAlertName} setDeleteAlertName={setDeleteAlertName} />
     ): (
       <></>
     )}
-    {roomInfo.members.map((member) => (
+    {roomInfo.members.map((member, index) => (
       <div className={classes.memberListDiv}>
-        <Button variant="outlined" className={classes.memberListButton} onClick={() => setDeleteAlertName(member)} >{member}</Button>
+        <Button variant="outlined" key={index} className={classes.memberListButton} onClick={() => setDeleteAlertName(member)} >{member}</Button>
       </div>
     ))}
     </div>

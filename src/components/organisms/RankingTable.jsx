@@ -44,6 +44,12 @@ const rows = [
 export const RankingTable = (props) => {
 	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
   const {githubData} = props
+
+  console.log(githubData)
+  if (githubData.oneWeekCommitCount) {
+    githubData = githubData.oneWeekCommitCount.sort((a, b) => b - a)
+    console.log(githubData.oneWeekCommitCount.sort((a, b) => b - a))
+  }
   console.log(githubData)
 	return (
 		<div>
@@ -58,11 +64,17 @@ export const RankingTable = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {githubData.map((data) => (
+                {githubData.map((data, index) => (
                   <StyledTableRow key={data.githubId}>
-                    <StyledTableCell component="th" scope="row">
-                      {data.githubId}
-                    </StyledTableCell>
+                    {index < 3 ? (
+                      <StyledTableCell component="th" scope="row">
+                        {index+1}位: {data.githubId}
+                      </StyledTableCell>
+                    ): (
+                      <StyledTableCell component="th" scope="row">
+                        {data.githubId}
+                      </StyledTableCell>
+                    )}
                     <StyledTableCell align="right">{data.totalCommitCount}</StyledTableCell>
                     <StyledTableCell align="right">{data.oneWeekCommitCount}</StyledTableCell>
                     <StyledTableCell align="right">{data.lastCommitDate}</StyledTableCell>
