@@ -50,7 +50,7 @@ export const RankingTable = () => {
   useEffect(() => {
     const GetGithubData = async () => {
       if (roomInfo.members) {
-        const tmpArray = [];
+        var tmpArray = [];
         await Promise.all(roomInfo.members.map(async (member) => {
           await axios
             .get(
@@ -77,17 +77,17 @@ export const RankingTable = () => {
               console.log(error);
             });
         }));
+        tmpArray = tmpArray.sort((a, b) => {
+          if (a.oneWeekCommitCount > b.oneWeekCommitCount) return -1;
+          if (a.oneWeekCommitCount < b.oneWeekCommitCount) return 1;
+          return 0;
+        })
         setGithubData(tmpArray);
       }
     };
     GetGithubData();
   }, [roomInfo.members]);
 
-  //if (githubData.oneWeekCommitCount) {
-  //  githubData = githubData.oneWeekCommitCount.sort((a, b) => b - a)
-  //  console.log(githubData.oneWeekCommitCount.sort((a, b) => b - a))
-  //}
-  console.log(githubData);
   return (
     <div>
       <TableContainer component={Paper}>
