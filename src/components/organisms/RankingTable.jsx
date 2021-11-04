@@ -74,7 +74,7 @@ export const RankingTable = () => {
               });
             })
             .catch((error) => {
-              console.log(error);
+              console.log(error.response);
             });
         }));
         tmpArray = tmpArray.sort((a, b) => {
@@ -86,7 +86,7 @@ export const RankingTable = () => {
       }
     };
     GetGithubData();
-  }, [roomInfo.members]);
+  }, [roomInfo]);
 
   return (
     <div>
