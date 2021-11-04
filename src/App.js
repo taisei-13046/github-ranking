@@ -2,7 +2,6 @@ import React, { createContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./router/Router";
 import { auth } from "./firebase"
-
 import { Home } from "./components/pages/Home"
 
 export const UserEmailContext = createContext()
@@ -26,18 +25,18 @@ const App = () => {
   }, [setUserEmail]);
 
   return (
-    <RoomInfoContext.Provider value={{roomInfo, setRoomInfo}}>
-      <UserEmailContext.Provider value={{userEmail, setUserEmail}}>
-        <UserGithubContext.Provider value={{githubId, setGithubId}}>
+    <RoomInfoContext.Provider value={{ roomInfo, setRoomInfo }}>
+      <UserEmailContext.Provider value={{ userEmail, setUserEmail }}>
+        <UserGithubContext.Provider value={{ githubId, setGithubId }}>
           {userEmail && flag ?
             <>
               <BrowserRouter>
                 <Router />
               </BrowserRouter>
             </>
-          : (
-            <Home flag={flag} setFlag={setFlag} />
-          )}
+            : (
+              <Home flag={flag} setFlag={setFlag} />
+            )}
         </UserGithubContext.Provider>
       </UserEmailContext.Provider>
     </RoomInfoContext.Provider>
