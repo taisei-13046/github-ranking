@@ -16,12 +16,11 @@ export const SearchRoom = () => {
         .get()
         .then((querySnapshot) => {
           querySnapshot.docs.map((doc) => {
-			  console.log(doc.data())
 			  const roomData = doc.data()
 			  if (searchRoomName === roomData.roomName && roomData.invitePeople.includes(githubId)) {
 				  setRoomInfo({
 					roomName: roomData.roomName,
-					members: [roomData.invitePeople]
+					members: roomData.invitePeople
 				  })
 				history.push('/ranking')
 			  }

@@ -17,7 +17,6 @@ const App = () => {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser)
         setUserEmail(authUser.email)
       }
     });
@@ -25,8 +24,6 @@ const App = () => {
       unSub();
     };
   }, [setUserEmail]);
-
-  console.log(userEmail)
 
   return (
     <RoomInfoContext.Provider value={{roomInfo, setRoomInfo}}>

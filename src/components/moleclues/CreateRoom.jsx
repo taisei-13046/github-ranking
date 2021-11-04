@@ -10,8 +10,8 @@ export const CreateRoom = () => {
 	const {setRoomInfo} = useContext(RoomInfoContext)
 	const history = useHistory()
 
-	const onClickCreateRoom = () => {
-		db.collection("room").add({
+	const onClickCreateRoom = async () => {
+		await db.collection("room").doc(`${createRoomName}`).set({
 			roomName: createRoomName,
 			invitePeople: [githubId]
 		}).then(() => {
