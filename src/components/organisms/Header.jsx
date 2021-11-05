@@ -4,9 +4,12 @@ import { makeStyles } from '@mui/styles'
 import { UserEmailContext } from '../../App';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
+  },
+  header: {
+    color: "#fff",
   },
   title: {
     flexGrow: 1,
@@ -29,12 +32,12 @@ export const Header = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar >
           <Typography variant="h6" className={classes.title}>
           Github Ranking
           </Typography>
-          <Button  onClick={onClickHomeButton}>Home</Button>
-          <Button  onClick={onClickLogoutButton}>Logout</Button>
+          <Button  color="inherit" onClick={onClickHomeButton}>Home</Button>
+          <Button  color="inherit" onClick={onClickLogoutButton}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
