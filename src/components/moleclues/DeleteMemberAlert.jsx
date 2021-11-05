@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { RoomInfoContext } from '../../App'
 import { db } from "../../firebase"
 
-export const DeleteAlert = (props) => {
+export const DeleteMemberAlert = (props) => {
 	const {deleteAlertName, setDeleteAlertName} = props
 	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
 

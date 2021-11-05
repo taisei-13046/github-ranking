@@ -98,7 +98,7 @@ export const SearchRoom = (props) => {
         <TextField
           className={classes.formcontrol}
           id="room-search"
-          label="Outlined"
+          label="room name"
           variant="outlined"
           onChange={(e) => setSearchRoomName(e.target.value)}
         />

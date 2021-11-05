@@ -6,7 +6,6 @@ import { auth } from "../../firebase"
 
 import { githubProvider } from "../../firebase"
 import { UserGithubContext } from '../../App';
-import { Header } from '../organisms/Header';
 
 const useStyles = makeStyles({
 	logindark: {

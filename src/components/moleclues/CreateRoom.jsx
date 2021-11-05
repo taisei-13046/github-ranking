@@ -93,7 +93,7 @@ export const CreateRoom = () => {
 				</div>
 				<TextField className={classes.formcontrol}
 					id="room-create"
-					label="Outlined"
+					label="room name"
 					variant="outlined"
 					onChange={(e) => setCreateRoomName(e.target.value)}
 				/>

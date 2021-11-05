@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles"
 import React, { useContext, useEffect, useState } from "react";
 import { RoomInfoContext } from "../../App";
 import { db } from "../../firebase";
-import { DeleteAlert } from "../moleclues/DeleteAlert";
+import { DeleteMemberAlert } from "../moleclues/DeleteMemberAlert";
 
 const useStyle = makeStyles({
 	textAndButton: {
@@ -64,7 +64,7 @@ export const InvitePeople = () => {
       </Button>
 	  <h2 className={classes.memberStyle}>Member</h2>
     {deleteAlertName ? (
-      <DeleteAlert deleteAlertName={deleteAlertName} setDeleteAlertName={setDeleteAlertName} />
+      <DeleteMemberAlert deleteAlertName={deleteAlertName} setDeleteAlertName={setDeleteAlertName} />
     ): (
       <></>
     )}
