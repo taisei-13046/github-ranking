@@ -8,8 +8,8 @@ export const Room = () => {
   return (
     <div>
       <Header />
-	  <SearchRoom />
 	  <CreateRoom />
+    <SearchRoom />
     </div>
   );
 };
