@@ -6,8 +6,10 @@ import { UserGithubContext } from "../../App";
 import { RoomInfoContext } from "../../App";
 import { db } from "../../firebase";
 
+
 const useStyles = makeStyles({
   roomList: {
+    height:"100vh",
     marginTop: "100px",
   },
   eachRoom: {
@@ -24,6 +26,7 @@ const useStyles = makeStyles({
 });
 
 export const RoomList = () => {
+  
   const { githubId } = useContext(UserGithubContext);
   const classes = useStyles();
   const [roomList, setRoomList] = useState([]);
