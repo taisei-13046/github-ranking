@@ -7,11 +7,11 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 export const CreateRoom = () => {
 	const [createRoomName, setCreateRoomName] = useState("");
 	const {githubId}= useContext(UserGithubContext)
-	const {setRoomInfo} = useContext(RoomInfoContext)
+	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
 	const history = useHistory()
 
-	const onClickCreateRoom = async () => {
-		await db.collection("room").doc(`${createRoomName}`).set({
+	const onClickCreateRoom = () => {
+		db.collection("room").doc(`${createRoomName}`).set({
 			roomName: createRoomName,
 			invitePeople: [githubId]
 		}).then(() => {
@@ -22,6 +22,7 @@ export const CreateRoom = () => {
 			roomName: createRoomName,
 			members: [githubId]
 		})
+		console.log(roomInfo)
 	}
 
 	return (
