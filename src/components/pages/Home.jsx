@@ -10,23 +10,30 @@ import { UserGithubContext } from '../../App';
 const useStyles = makeStyles({
 	logindark: {
 		textAlign: "center",
-		height: "1000px",
+		height: "900px",
 		background: "#e9f9ff",
 		backgroundSize: "cover",
 		position: "relative",
 	},
+	title: {
+		fontSize: "150px"
+	},
 	logindrakform: {
-		maxWidth: "320px",
+		height: "750px",
+		maxWidth: "800px",
 		width: "90%",
 		backgroundColor: "#1e2833",
 		padding: "40px",
-		borderRadius: "4px",
+		borderRadius: "50%",
 		transform: "translate(-50%,-50%)",
 		position: "absolute",
-		top: "40%",
+		top: "45%",
 		left: "50%",
 		color: "#ff9100",
 		boxShadow: "3px 3px 4px rgba(0,0,0,0.2)"
+	},
+	description: {
+		fontSize: "30px"
 	},
 	illustrasion: {
 		textalign: "center",
@@ -35,15 +42,13 @@ const useStyles = makeStyles({
 		color: "#ffff"
 	},
 	formcontrol: {
-		background: "#fff",
-		border: "none",
-		borderBottom: "1px solid #434a52",
-		borderRadius: "0",
-		boxShadow: "none",
+		width: "300px",
 		outLine: "none",
-		color: "inherit"
+		color: "inherit",
+		backgroundColor: "white",
 	},
 	btnprimary: {
+		width: "150px",
 		background: "#214a80",
 		border: "none",
 		borderRadius: "4px",
@@ -85,9 +90,9 @@ export const Home = (props) => {
 			<div className={classes.logindark}>
 				<div className={classes.logindrakform}>
 					<div className={classes.illustrasion}>
-						<h3>Github Ranking</h3>
+						<h3 className={classes.title}>Github Ranking</h3>
 					</div>
-					<div>
+					<div className={classes.description}>
 						<p>Githubのコミット履歴で</p>
 						<p>友人と競いましょう！</p>
 					</div>
@@ -97,6 +102,7 @@ export const Home = (props) => {
 					<div >
 						<GithubLoginButton className={classes.btnprimary}
 							onClick={onClickLoginGithub}
+							style={{ margin: "0 auto", width: "250px" }}
 						/>
 					</div>
 				</div>

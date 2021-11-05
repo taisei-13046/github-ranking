@@ -22,13 +22,14 @@ const useStyles = makeStyles({
   },
   buttonStyle: {
     backgroundColor: "white",
-	width: "200px",
-	height: "50px",
+    width: "200px",
+    height: "50px",
+    color: "white"
   },
 });
 
 export const RoomList = () => {
-  
+
   const { githubId } = useContext(UserGithubContext);
   const classes = useStyles();
   const [roomList, setRoomList] = useState([]);
@@ -84,9 +85,10 @@ export const RoomList = () => {
         <>
           <div className={classes.eachRoom}>
             <Button
-              variant="outlined"
+              variant="contained"
               key={index}
               className={classes.buttonStyle}
+              style={{ color: "#1976d2", backgroundColor: "white" }}
               onClick={() => setSelectedRoomName(room)}
             >
               {room}

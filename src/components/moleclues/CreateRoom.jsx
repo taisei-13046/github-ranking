@@ -14,11 +14,11 @@ const useStyles = makeStyles({
 		position: "relative",
 	},
 	logindrakform: {
-		maxWidth: "320px",
+		maxWidth: "700px",
 		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: "40px",
-		borderRadius: "4px",
+		borderRadius: "50%",
 		transform: "translate(-50%,-50%)",
 		position: "absolute",
 		top: "50%",
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 		color: "#000000"
 	},
 	formcontrol: {
+		width: "200px",
 		background: "#fff",
 		border: "none",
 		borderBottom: "1px solid #434a52",
