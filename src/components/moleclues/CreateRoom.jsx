@@ -3,34 +3,34 @@ import { Button, TextField } from '@mui/material'
 import { db } from "../../firebase"
 import { RoomInfoContext, UserGithubContext } from '../../App';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { makeStyles,createStyles, Theme} from '@mui/styles'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles({
 	logindark: {
 		textAlign: "center",
 		height: "400px",
-		background: "#34c4fd",
+		background: "#e9f9ff",
 		backgroundSize: "cover",
 		position: "relative",
 	},
 	logindrakform: {
 		maxWidth: "320px",
 		width: "90%",
-		backgroundColor: "#1e2833",
+		backgroundColor: "#ffffff",
 		padding: "40px",
 		borderRadius: "4px",
 		transform: "translate(-50%,-50%)",
 		position: "absolute",
 		top: "50%",
 		left: "50%",
-		color: "#ff9100",
+		color: "#000000",
 		boxShadow: "3px 3px 4px rgba(0,0,0,0.2)"
 	},
 	illustrasion: {
 		textalign: "center",
 		padding: "15px 0 20px",
 		fontSize: "100px",
-		color: "#ffff"
+		color: "#000000"
 	},
 	formcontrol: {
 		background: "#fff",

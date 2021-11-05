@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 	logindark: {
 		textAlign: "center",
 		height: "1000px",
-		background: "#34c4fd",
+		background: "#e9f9ff",
 		backgroundSize: "cover",
 		position: "relative",
 	},
@@ -92,7 +92,7 @@ export const Home = (props) => {
 						<p>Githubのコミット履歴で</p>
 						<p>友人と競いましょう！</p>
 					</div>
-					<TextField className={classes.formcontrol} id="github-id" label="github-id" variant="outlined" value={githubId} onChange={(e) => setGithubId(e.target.value)} />
+					<TextField className={classes.formcontrol} id="github-id" label="github-id" variant="filled" value={githubId} onChange={(e) => setGithubId(e.target.value)} />
 					<br />
 					<br />
 					<div >
