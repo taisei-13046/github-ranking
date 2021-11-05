@@ -66,8 +66,6 @@ export const RoomList = () => {
     });
   };
 
-  console.log(roomList);
-
   return (
     <div className={classes.roomList}>
       <h2 className={classes.roomTitle}>Your Room</h2>

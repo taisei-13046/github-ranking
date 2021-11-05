@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { makeStyles } from '@mui/styles'
 import { UserEmailContext } from '../../App';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { auth } from "../../firebase"
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,8 +24,13 @@ export const Header = () => {
   const history = useHistory()
   const {setUserEmail} = useContext(UserEmailContext)
   const onClickLogoutButton = () => {
-	setUserEmail("")
-	history.push('/')
+    auth.signOut().then(()=>{
+      setUserEmail("")
+      history.push('/')
+    })
+    .catch( (error)=>{
+      console.log(`ログアウト時にエラーが発生しました (${error})`);
+    });
   }
   const onClickHomeButton = () => {
 	  history.push('/')
