@@ -19,8 +19,6 @@ const useStyles = makeStyles({
 
 export const Ranking = () => {
   const classes = useStyles()
-	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
-  const [openRankigFlag, setOpenRankingFlag] = useState(false)
 
   return (
     <div>

@@ -42,8 +42,8 @@ export const Header = () => {
           <Typography variant="h6" className={classes.title}>
           Github Ranking
           </Typography>
-          <Button  color="inherit" onClick={onClickHomeButton}>Home</Button>
-          <Button  color="inherit" onClick={onClickLogoutButton}>Logout</Button>
+          <Button color="inherit" onClick={onClickHomeButton}>Home</Button>
+          <Button color="inherit" onClick={onClickLogoutButton}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>

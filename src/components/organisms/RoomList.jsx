@@ -5,10 +5,12 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { UserGithubContext } from "../../App";
 import { RoomInfoContext } from "../../App";
 import { db } from "../../firebase";
+import { RoomAlert } from "../moleclues/RoomAlert";
 
 const useStyles = makeStyles({
   roomList: {
     marginTop: "100px",
+	textAlign: "center"
   },
   eachRoom: {
     marginTop: "10px",
@@ -27,6 +29,7 @@ export const RoomList = () => {
   const { githubId } = useContext(UserGithubContext);
   const classes = useStyles();
   const [roomList, setRoomList] = useState([]);
+  const [selectedRoomName, setSelectedRoomName] = useState("")
   const { setRoomInfo } = useContext(RoomInfoContext);
   const history = useHistory()
 
@@ -45,7 +48,7 @@ export const RoomList = () => {
       setRoomList(tmpArray);
     };
     GetRoomList();
-  }, []);
+  }, [roomList]);
 
   const onClickByList = async (room) => {
     const docRef = db.collection("room");
@@ -69,6 +72,11 @@ export const RoomList = () => {
   return (
     <div className={classes.roomList}>
       <h2 className={classes.roomTitle}>Your Room</h2>
+		{selectedRoomName ? (
+		<RoomAlert selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} />
+		): (
+		<></>
+		)}
       {roomList.map((room, index) => (
         <>
           <div className={classes.eachRoom}>
@@ -76,7 +84,7 @@ export const RoomList = () => {
               variant="outlined"
               key={index}
               className={classes.buttonStyle}
-              onClick={() => onClickByList(room)}
+              onClick={() => setSelectedRoomName(room)}
             >
               {room}
             </Button>
