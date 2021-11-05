@@ -14,7 +14,7 @@ import dateFormat from "dateformat";
 
 const useStyles = makeStyles({
   tableStyle: {
-    height: "75px",
+    height: "100px",
   },
 });
 
@@ -54,21 +54,20 @@ export const RankingTable = () => {
         await Promise.all(roomInfo.members.map(async (member) => {
           await axios
             .get(
-              `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc`
+              `https://api.github.com/users/${member}/events?per_page=100`
             )
             .then((res) => {
               console.log(res);
-              const oneWeekCommitCount = res.data.items.filter(
-                (item) =>
-                  new Date(item.commit.committer.date).getTime() <=
-                  oneWeekAgoDate.getTime()
+              const oneWeekCommitCount = res.data.filter(
+                (data) =>
+                  new Date(data.created_at).getTime() <=
+                  oneWeekAgoDate.getTime() && data.type == "PushEvent"
               ).length;
               tmpArray.push({
-                githubId: res.data.items[0].author.login,
-                totalCommitCount: res.data.total_count,
+                githubId: res.data[0].actor.display_login,
                 oneWeekCommitCount: oneWeekCommitCount,
                 lastCommitDate: dateFormat(
-                  res.data.items[0].commit.committer.date,
+                  res.data[0].created_at,
                   "fullDate"
                 ),
               });
@@ -96,13 +95,12 @@ export const RankingTable = () => {
             <TableRow>
               <StyledTableCell>RoomName: {roomInfo.roomName}</StyledTableCell>
               <StyledTableCell align="right">Weekly Commit</StyledTableCell>
-              <StyledTableCell align="right">Total Commit</StyledTableCell>
               <StyledTableCell align="right">Last Commit Date</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {githubData.map((data, index) => (
-              <StyledTableRow key={data.githubId}>
+              <StyledTableRow key={index}>
                 {index < 3 ? (
                   <StyledTableCell
                     component="th"
@@ -118,9 +116,6 @@ export const RankingTable = () => {
                 )}
                 <StyledTableCell align="right">
                   {data.oneWeekCommitCount}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {data.totalCommitCount}
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {data.lastCommitDate}

@@ -44,6 +44,8 @@ export const InvitePeople = () => {
     setInvitePeopleName("");
   }
 
+  console.log(roomInfo)
+
   return (
     <div className={classes.textAndButton}>
       <h2>Invite People</h2>
