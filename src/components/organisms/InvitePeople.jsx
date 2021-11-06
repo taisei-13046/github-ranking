@@ -10,7 +10,7 @@ const useStyle = makeStyles({
     textAlign: "center",
   },
   textWidth: {
-    width: "250px"
+    width: "225px"
   },
   textStyle: {
     marginTop: "30px",
@@ -29,7 +29,7 @@ const useStyle = makeStyles({
     height: "50px"
   },
   memberStyle: {
-    marginTop: "100px",
+    marginTop: "25px",
   },
 });
 
@@ -67,7 +67,7 @@ export const InvitePeople = () => {
 
   return (
     <div className={classes.textAndButton}>
-      <h1>Invite People</h1>
+      <h2>Invite People</h2>
       <div className={classes.textStyle}>
         <TextField
           id="invite-member-search"
@@ -82,7 +82,7 @@ export const InvitePeople = () => {
       <Button size="large" variant="contained" onClick={onClickInvite}>
         Invite
       </Button>
-      <h1 className={classes.memberStyle}>Member</h1>
+      <h2 className={classes.memberStyle}>Member</h2>
       {deleteAlertName ? (
         <DeleteMemberAlert
           deleteAlertName={deleteAlertName}

@@ -24,12 +24,12 @@ const useStyles = makeStyles(() => ({
 const customTheme = createMuiTheme({
   mixins: {
     toolbar: {
-        minHeight: 75,
+        minHeight: 60,
     }
   },
   typography: {
     // fontFamily: "Indie Flower",
-    fontSize: 25,
+    fontSize: 20,
     button: {
         textTransform: "none"
     }
@@ -57,7 +57,7 @@ export const Header = () => {
     <div className={classes.root}>
         <AppBar position="static" className={classes.header} >
           <Toolbar theme={customTheme}>
-            <Typography variant="h4" className={classes.title} >
+            <Typography variant="h5" className={classes.title} >
             Github Ranking
             </Typography>
             <div className={classes.button}>
