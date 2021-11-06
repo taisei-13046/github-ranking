@@ -29,8 +29,9 @@ const useStyles = makeStyles({
 export const DeleteRoom = (props) => {
 	const {setConfirmAlert, selectedRoomName, setSelectedRoomName, setRoomList } = props;
 	const { githubId } = useContext(UserGithubContext);
+	const classes = useStyles()
 
-	const onClickDeleteYes = () => {
+	const onClickDeleteYes = async () => {
 		db.collection("room")
 			.doc(`${selectedRoomName}`)
 			.delete()
@@ -39,7 +40,7 @@ export const DeleteRoom = (props) => {
 			});
 		var tmpArray = [];
 		const docRef = db.collection("room");
-		docRef.get().then((querySnapshot) => {
+		await docRef.get().then((querySnapshot) => {
 			querySnapshot.docs.map((doc) => {
 			const roomData = doc.data();
 			if (roomData.invitePeople.includes(githubId)) {
@@ -52,12 +53,20 @@ export const DeleteRoom = (props) => {
 	}
 
 	return (
-		<div>
-			<Alert severity="success" color="info">
-				<div>do you want to delete {selectedRoomName}?</div>
-				<Button size="small" onClick={onClickDeleteYes}>Yes</Button>
-				<Button size="small" onClick={() => setConfirmAlert(false)} >No</Button>
-			</Alert>
+		<div className={classes.root}>
+		<Alert icon={false} variant="outlined" severity="info" className={classes.alertBox}>
+			<h5>Are you sure you want to delete <b>{selectedRoomName}</b>?</h5>
+			<div className={classes.buttonLeft}>
+			<Button size="large" variant="outlined" onClick={onClickDeleteYes}>
+				Yes
+			</Button>
+			</div>
+			<div className={classes.buttonRight}>
+			<Button size="large" variant="outlined" onClick={() => setConfirmAlert(false)}>
+				No
+			</Button>
+			</div>
+		</Alert>
 		</div>
 	)
 }
