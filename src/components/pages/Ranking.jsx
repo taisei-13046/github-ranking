@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { RoomInfoContext, UserGithubContext } from "../../App";
+import React from "react";
 import { Header } from "../organisms/Header";
-import axios from "axios";
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { RankingTable } from "../organisms/RankingTable";

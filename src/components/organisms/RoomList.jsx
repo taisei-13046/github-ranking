@@ -1,9 +1,7 @@
 import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { UserGithubContext } from "../../App";
-import { RoomInfoContext } from "../../App";
 import { db } from "../../firebase";
 import { RoomAlert } from "../moleclues/RoomAlert";
 

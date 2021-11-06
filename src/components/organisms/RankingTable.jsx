@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { styled, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -42,69 +42,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export const RankingTable = () => {
   const { roomInfo } = useContext(RoomInfoContext);
   const [githubData, setGithubData] = useState([]);
-  const [repoList, setRepoList] = useState([]);
-  const [weeklyCommit, setWeeklyCommit] = useState([]);
   const classes = useStyles();
 
   var oneWeekAgoDate = new Date();
-  oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - 7);
-
-  //useEffect(() => {
-  //  const GetGithubData = async () => {
-  //    if (roomInfo.members) {
-  //      var tmpArray = [];
-  //      var tmpRepoList = [];
-  //      await Promise.all(
-  //        roomInfo.members.map(async (member) => {
-  //          await axios
-  //            .get(
-  //              `https://api.github.com/users/${member}/repos?client_id=a9590bfb3393ec3b08dc&client_secret=7aed9c8099ca2043c0a1f184eac560972cd7439e`
-  //            )
-  //            .then((res) => {
-  //              console.log(res);
-  //              res.data.map((data) => {
-  //                tmpRepoList.push({ [member]: data.name });
-  //              });
-  //            })
-  //            .catch((error) => {
-  //              console.log(error.response);
-  //            });
-  //        })
-  //      );
-  //      setRepoList(tmpRepoList);
-  //      var oneWeekCommitCount = 0;
-  //      await Promise.all(
-  //        repoList.map(async (repo) => {
-  //          console.log(Object.keys(repo)[0]);
-  //          const repoOwner = Object.keys(repo)[0];
-  //          const repoName = repo[repoOwner];
-  //          await axios
-  //            .get(
-  //              `https://api.github.com/repos/${repoOwner}/${repoName}/commits?client_id=a9590bfb3393ec3b08dc&client_secret=7aed9c8099ca2043c0a1f184eac560972cd7439e`
-  //            )
-  //            .then((res) => {
-  //              console.log(res);
-  //              //console.log(
-  //              //  new Date(res.data[0].commit.author.date).getTime() <=
-  //              //    oneWeekAgoDate.getTime()
-  //              //);
-  //              console.log(oneWeekAgoDate);
-  //              oneWeekCommitCount = res.data.filter(
-  //                (data) =>
-  //                  new Date(data.commit.author.date).getTime() <=
-  //                  oneWeekAgoDate.getTime()
-  //              ).length;
-  //              //console.log(oneWeekCommitCount);
-  //            })
-  //            .catch((error) => {
-  //              console.log(error.response);
-  //            });
-  //        })
-  //      );
-  //    }
-  //  };
-  //  GetGithubData();
-  //}, [roomInfo]);
+  var date = oneWeekAgoDate.getDate();
+  oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - date);
+  console.log(oneWeekAgoDate)
 
   useEffect(() => {
     const GetGithubData = async () => {
@@ -114,13 +57,12 @@ export const RankingTable = () => {
           roomInfo.members.map(async (member) => {
             await axios
               .get(
-                `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?client_id=a9590bfb3393ec3b08dc&client_secret=7aed9c8099ca2043c0a1f184eac560972cd7439e`
+                `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_SECRET_KEY}`
               )
-              .then((res) => {
-                console.log(res);
-                const oneWeekCommitCount = res.data.items.filter(
+              .then(async (res) => {
+                const oneWeekCommitCount = await res.data.items.filter(
                   (item) =>
-                    new Date(item.commit.committer.date).getTime() <=
+                    new Date(item.commit.committer.date).getTime() >=
                     oneWeekAgoDate.getTime()
                 ).length;
                 tmpArray.push({
@@ -151,12 +93,15 @@ export const RankingTable = () => {
 
   return (
     <div>
+      <h1>{dateFormat(oneWeekAgoDate, "paddedShortDate")} ~</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>RoomName: {roomInfo.roomName}</StyledTableCell>
-              <StyledTableCell align="right">Weekly Commit</StyledTableCell>
+              <StyledTableCell align="right">
+                Weekly Commit(Max 30)
+              </StyledTableCell>
               <StyledTableCell align="right">Total Commit</StyledTableCell>
               <StyledTableCell align="right">Last Commit Date</StyledTableCell>
             </TableRow>

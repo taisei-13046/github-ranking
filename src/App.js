@@ -25,10 +25,6 @@ const App = () => {
     };
   }, [setUserEmail]);
 
-  var oneWeekAgoDate = new Date();
-  oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - 7);
-  console.log(oneWeekAgoDate);
-
   return (
     <RoomInfoContext.Provider value={{ roomInfo, setRoomInfo }}>
       <UserEmailContext.Provider value={{ userEmail, setUserEmail }}>
