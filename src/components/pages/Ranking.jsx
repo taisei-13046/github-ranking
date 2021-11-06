@@ -22,12 +22,12 @@ export const Ranking = () => {
     <div>
       <Header />
       <Grid container >
-        <Grid item xs={10} >
+        <Grid item xs={9} >
           <div className={classes.rankingTable}>
             <RankingTable />
           </div>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <div className={classes.inviteTextandButton}>
             <InvitePeople />
           </div>

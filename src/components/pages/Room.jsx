@@ -22,11 +22,11 @@ export const Room = () => {
       <Header />
       <div className={classes.backgraound}>
         <Grid container >
-          <Grid item xs={8} >
+          <Grid item xs={7} >
               <CreateRoom />
               <SearchRoom />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <RoomList />
           </Grid>
         </Grid>

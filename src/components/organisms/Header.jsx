@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, createMuiTheme, Toolbar, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { makeStyles } from '@mui/styles'
 import { UserEmailContext } from '../../App';
@@ -16,7 +16,25 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
     textAlign: 'left',
   },
+  button: {
+    marginRight: "40px"
+  }
 }));
+
+const customTheme = createMuiTheme({
+  mixins: {
+    toolbar: {
+        minHeight: 75,
+    }
+  },
+  typography: {
+    // fontFamily: "Indie Flower",
+    fontSize: 25,
+    button: {
+        textTransform: "none"
+    }
+  }
+});
 
 
 export const Header = () => {
@@ -37,15 +55,17 @@ export const Header = () => {
   }
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.header}>
-        <Toolbar >
-          <Typography variant="h6" className={classes.title}>
-          Github Ranking
-          </Typography>
-          <Button color="inherit" onClick={onClickHomeButton}>Home</Button>
-          <Button color="inherit" onClick={onClickLogoutButton}>Logout</Button>
-        </Toolbar>
-      </AppBar>
+        <AppBar position="static" className={classes.header} >
+          <Toolbar theme={customTheme}>
+            <Typography variant="h4" className={classes.title} >
+            Github Ranking
+            </Typography>
+            <div className={classes.button}>
+              <Button color="inherit" theme={customTheme} onClick={onClickHomeButton}>Home</Button>
+            </div>
+            <Button color="inherit" theme={customTheme} onClick={onClickLogoutButton}>Logout</Button>
+          </Toolbar>
+        </AppBar>
     </div>
   );
 }
