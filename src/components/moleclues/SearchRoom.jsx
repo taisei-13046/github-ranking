@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import { db } from "../../firebase";
 import { RoomInfoContext, UserGithubContext } from "../../App";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { makeStyles, createStyles, Theme } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   logindark: {

@@ -1,31 +1,31 @@
 import React, { useContext } from "react";
 import { Alert, Button } from "@mui/material";
-import { db } from "../../firebase"
+import { db } from "../../firebase";
 import { RoomInfoContext, UserGithubContext } from "../../App";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-	root: {
-		margin: "0 auto",
-	},
-	alertBox: {
-		margin: "0 auto",
-		width: "500px",
-		backgroundColor: "#fff",
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-})
+  root: {
+    margin: "0 auto",
+  },
+  alertBox: {
+    margin: "0 auto",
+    width: "500px",
+    backgroundColor: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export const RoomAlert = (props) => {
   const { selectedRoomName, setSelectedRoomName, setRoomList } = props;
   const { githubId } = useContext(UserGithubContext);
-  const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
-  const classes = useStyles()
+  const { setRoomInfo } = useContext(RoomInfoContext);
+  const classes = useStyles();
 
-  const history = useHistory()
+  const history = useHistory();
 
   const onClickEnterRoom = async () => {
     const docRef = db.collection("room");
@@ -47,11 +47,12 @@ export const RoomAlert = (props) => {
   };
 
   const onClickDeleteRoom = () => {
-	  db.collection("room").doc(`${selectedRoomName}`)
-	  .delete()
-	  .then(() => {
-		  setSelectedRoomName("")
-	  })
+    db.collection("room")
+      .doc(`${selectedRoomName}`)
+      .delete()
+      .then(() => {
+        setSelectedRoomName("");
+      });
     var tmpArray = [];
     const docRef = db.collection("room");
     docRef.get().then((querySnapshot) => {
