@@ -65,13 +65,13 @@ export const RoomList = () => {
   return (
     <div className={classes.roomList}>
       <h2 className={classes.roomTitle}>Your Room</h2>
-      {alertOpenFlag ? (
+      {alertOpenFlag && !confirmAlert ? (
       <RoomAlert setConfirmAlert={setConfirmAlert} setAlertOpenFlag={setAlertOpenFlag} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList}/>
       ): (
       <></>
       )}
       {confirmAlert ? (
-        <DeleteRoom setConfirmAlert={setConfirmAlert} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList} />
+        <DeleteRoom setConfirmAlert={setConfirmAlert} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList} roomList={roomList} />
       ): (
         <></>
       )}
@@ -83,7 +83,6 @@ export const RoomList = () => {
               variant="outlined"
               key={index}
               className={classes.buttonStyle}
-              //style={{ color: "#1976d2", backgroundColor: "white" }}
               style={{ color: "#1976d2", backgroundColor: "white" }}
               onClick={() => {
                 setSelectedRoomName(room)

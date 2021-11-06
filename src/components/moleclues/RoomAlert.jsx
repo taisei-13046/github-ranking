@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 export const RoomAlert = (props) => {
-  const {setConfirmAlert, setAlertOpenFlag, selectedRoomName, setSelectedRoomName, setRoomList } = props;
+  const {setConfirmAlert, setAlertOpenFlag, selectedRoomName } = props;
   const { githubId } = useContext(UserGithubContext);
   const { setRoomInfo } = useContext(RoomInfoContext);
   const classes = useStyles();
