@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 })
 
 export const RoomAlert = (props) => {
-  const { selectedRoomName, setSelectedRoomName } = props;
+  const { selectedRoomName, setSelectedRoomName, setRoomList } = props;
   const { githubId } = useContext(UserGithubContext);
   const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
   const classes = useStyles()
@@ -52,6 +52,17 @@ export const RoomAlert = (props) => {
 	  .then(() => {
 		  setSelectedRoomName("")
 	  })
+    var tmpArray = [];
+    const docRef = db.collection("room");
+    docRef.get().then((querySnapshot) => {
+      querySnapshot.docs.map((doc) => {
+        const roomData = doc.data();
+        if (roomData.invitePeople.includes(githubId)) {
+          tmpArray.push(roomData.roomName);
+        }
+      });
+    });
+    setRoomList(tmpArray);
   };
 
   return (

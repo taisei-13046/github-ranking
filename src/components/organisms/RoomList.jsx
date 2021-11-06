@@ -34,8 +34,6 @@ export const RoomList = () => {
   const classes = useStyles();
   const [roomList, setRoomList] = useState([]);
   const [selectedRoomName, setSelectedRoomName] = useState("")
-  const { setRoomInfo } = useContext(RoomInfoContext);
-  const history = useHistory()
 
   useEffect(() => {
     const GetRoomList = async () => {
@@ -52,32 +50,14 @@ export const RoomList = () => {
       setRoomList(tmpArray);
     };
     GetRoomList();
-  }, [roomList]);
-
-  const onClickByList = async (room) => {
-    const docRef = db.collection("room");
-    await docRef.get().then((querySnapshot) => {
-      querySnapshot.docs.map((doc) => {
-        const roomData = doc.data();
-        if (
-          room === roomData.roomName &&
-          roomData.invitePeople.includes(githubId)
-        ) {
-          setRoomInfo({
-            roomName: roomData.roomName,
-            members: roomData.invitePeople,
-          });
-          history.push("/ranking");
-        }
-      });
-    });
-  };
+    console.log('hello')
+  }, []);
 
   return (
     <div className={classes.roomList}>
       <h2 className={classes.roomTitle}>Your Room</h2>
 		{selectedRoomName ? (
-		<RoomAlert selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} />
+		<RoomAlert selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList}/>
 		): (
 		<></>
 		)}
