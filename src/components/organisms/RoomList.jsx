@@ -50,7 +50,6 @@ export const RoomList = () => {
       setRoomList(tmpArray);
     };
     GetRoomList();
-    console.log('hello')
   }, []);
 
   return (
