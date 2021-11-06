@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { GithubLoginButton } from "react-social-login-buttons";
 import { auth } from "../../firebase"
-
+import RubberBand from 'react-reveal/RubberBand';
 import { githubProvider } from "../../firebase"
 import { UserGithubContext } from '../../App';
 
@@ -90,7 +90,9 @@ export const Home = (props) => {
 			<div className={classes.logindark}>
 				<div className={classes.logindrakform}>
 					<div className={classes.illustrasion}>
-						<h3 className={classes.title}>Github Ranking</h3>
+						<RubberBand>
+							<h3 className={classes.title}>Github Ranking</h3>
+						</RubberBand>
 					</div>
 					<div className={classes.description}>
 						<p>Githubのコミット履歴で</p>
