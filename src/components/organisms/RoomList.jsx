@@ -1,8 +1,9 @@
-import { Button } from "@mui/material";
+import { Button, createMuiTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { UserGithubContext } from "../../App";
 import { db } from "../../firebase";
+import { DeleteRoom } from "../moleclues/DeleteRoom";
 import { RoomAlert } from "../moleclues/RoomAlert";
 
 
@@ -10,20 +11,29 @@ const useStyles = makeStyles({
   roomList: {
     height:"100vh",
     marginTop: "100px",
-	textAlign: "center"
+    textAlign: "center"
   },
   eachRoom: {
-    marginTop: "10px",
+    marginTop: "25px",
   },
   roomTitle: {
     marginButtom: "5px",
+    fontSize: "50px"
   },
   buttonStyle: {
-    backgroundColor: "white",
-    width: "200px",
-    height: "50px",
-    color: "white"
+    width: "400px",
+    height: "75px",
   },
+});
+
+const customTheme = createMuiTheme({
+  typography: {
+      // fontFamily: "Indie Flower",
+      fontSize: 25,
+      button: {
+          textTransform: "none"
+      }
+  }
 });
 
 export const RoomList = () => {
@@ -32,6 +42,8 @@ export const RoomList = () => {
   const classes = useStyles();
   const [roomList, setRoomList] = useState([]);
   const [selectedRoomName, setSelectedRoomName] = useState("")
+  const [alertOpenFlag, setAlertOpenFlag] = useState(false)
+  const [confirmAlert, setConfirmAlert] = useState(false)
 
   useEffect(() => {
     const GetRoomList = async () => {
@@ -53,20 +65,30 @@ export const RoomList = () => {
   return (
     <div className={classes.roomList}>
       <h2 className={classes.roomTitle}>Your Room</h2>
-		{selectedRoomName ? (
-		<RoomAlert selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList}/>
-		): (
-		<></>
-		)}
+      {alertOpenFlag ? (
+      <RoomAlert setConfirmAlert={setConfirmAlert} setAlertOpenFlag={setAlertOpenFlag} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList}/>
+      ): (
+      <></>
+      )}
+      {confirmAlert ? (
+        <DeleteRoom setConfirmAlert={setConfirmAlert} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList} />
+      ): (
+        <></>
+      )}
       {roomList.map((room, index) => (
         <>
           <div className={classes.eachRoom}>
             <Button
-              variant="contained"
+              theme={customTheme}
+              variant="outlined"
               key={index}
               className={classes.buttonStyle}
+              //style={{ color: "#1976d2", backgroundColor: "white" }}
               style={{ color: "#1976d2", backgroundColor: "white" }}
-              onClick={() => setSelectedRoomName(room)}
+              onClick={() => {
+                setSelectedRoomName(room)
+                setAlertOpenFlag(true)
+              }}
             >
               {room}
             </Button>

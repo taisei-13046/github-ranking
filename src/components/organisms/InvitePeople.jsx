@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, createMuiTheme, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useContext, useState } from "react";
 import { RoomInfoContext } from "../../App";
@@ -9,19 +9,38 @@ const useStyle = makeStyles({
   textAndButton: {
     textAlign: "center",
   },
+  textWidth: {
+    width: "250px"
+  },
   textStyle: {
+    marginTop: "30px",
     marginBottom: "5px",
   },
+  memberWhole: {
+    marginTop: "20px"
+  },
   memberListDiv: {
-    marginTop: "10px",
+    marginTop: "15px",
     color: "black",
   },
   memberListButton: {
     contrastText: "black",
+    width: "200px",
+    height: "50px"
   },
   memberStyle: {
     marginTop: "100px",
   },
+});
+
+const customTheme = createMuiTheme({
+  typography: {
+      // fontFamily: "Indie Flower",
+      fontSize: 18,
+      button: {
+          textTransform: "none"
+      }
+  }
 });
 
 export const InvitePeople = () => {
@@ -48,21 +67,22 @@ export const InvitePeople = () => {
 
   return (
     <div className={classes.textAndButton}>
-      <h2>Invite People</h2>
+      <h1>Invite People</h1>
       <div className={classes.textStyle}>
         <TextField
           id="invite-member-search"
           label="github-id"
           variant="outlined"
           value={invitePeopleName}
+          className={classes.textWidth}
           onChange={(e) => setInvitePeopleName(e.target.value)}
         />
       </div>
       <br />
-      <Button variant="contained" onClick={onClickInvite}>
+      <Button size="large" variant="contained" onClick={onClickInvite}>
         Invite
       </Button>
-      <h2 className={classes.memberStyle}>Member</h2>
+      <h1 className={classes.memberStyle}>Member</h1>
       {deleteAlertName ? (
         <DeleteMemberAlert
           deleteAlertName={deleteAlertName}
@@ -71,18 +91,21 @@ export const InvitePeople = () => {
       ) : (
         <></>
       )}
-      {roomInfo.members.map((member, index) => (
-        <div className={classes.memberListDiv}>
-          <Button
-            variant="outlined"
-            key={index}
-            className={classes.memberListButton}
-            onClick={() => setDeleteAlertName(member)}
-          >
-            {member}
-          </Button>
-        </div>
-      ))}
+      <div className={classes.memberWhole}>
+        {roomInfo.members.map((member, index) => (
+          <div className={classes.memberListDiv}>
+            <Button
+              variant="outlined"
+              key={index}
+              className={classes.memberListButton}
+              onClick={() => setDeleteAlertName(member)}
+              theme={customTheme}
+            >
+              {member}
+            </Button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

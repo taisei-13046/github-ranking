@@ -17,10 +17,18 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
+  buttonLeft: {
+    display: "inline-block",
+    marginRight: "5px"
+  },
+  buttonRight: {
+    display: "inline-block",
+    marginLeft: "5px"
+  }
 });
 
 export const RoomAlert = (props) => {
-  const { selectedRoomName, setSelectedRoomName, setRoomList } = props;
+  const {setConfirmAlert, setAlertOpenFlag, selectedRoomName, setSelectedRoomName, setRoomList } = props;
   const { githubId } = useContext(UserGithubContext);
   const { setRoomInfo } = useContext(RoomInfoContext);
   const classes = useStyles();
@@ -46,36 +54,25 @@ export const RoomAlert = (props) => {
     });
   };
 
-  const onClickDeleteRoom = () => {
-    db.collection("room")
-      .doc(`${selectedRoomName}`)
-      .delete()
-      .then(() => {
-        setSelectedRoomName("");
-      });
-    var tmpArray = [];
-    const docRef = db.collection("room");
-    docRef.get().then((querySnapshot) => {
-      querySnapshot.docs.map((doc) => {
-        const roomData = doc.data();
-        if (roomData.invitePeople.includes(githubId)) {
-          tmpArray.push(roomData.roomName);
-        }
-      });
-    });
-    setRoomList(tmpArray);
-  };
+  const onClickDelete = () => {
+    setAlertOpenFlag(false)
+    setConfirmAlert(true)
+  }
 
   return (
     <div className={classes.root}>
-      <Alert icon={false} variant="outlined" className={classes.alertBox}>
-        <h5>{selectedRoomName}</h5>
-        <Button size="large" onClick={onClickEnterRoom}>
-          Enter
-        </Button>
-        <Button size="large" onClick={onClickDeleteRoom}>
-          Delete
-        </Button>
+      <Alert icon={false} variant="outlined" severity="info" className={classes.alertBox}>
+        <h3>{selectedRoomName}</h3>
+        <div className={classes.buttonLeft}>
+          <Button size="large" variant="outlined" onClick={onClickEnterRoom}>
+            Enter
+          </Button>
+        </div>
+        <div className={classes.buttonRight}>
+          <Button size="large" variant="outlined" onClick={onClickDelete}>
+            Delete
+          </Button>
+        </div>
       </Alert>
     </div>
   );
