@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     margin: "30px",
   },
   inviteTextandButton: {
-    marginTop: "30px",
+    marginTop: "75px",
   }
 })
 
