@@ -56,8 +56,8 @@ export const RoomAlert = (props) => {
 
   return (
     <div className={classes.root}>
-      <Alert icon={false} variant="outlined" color="default" className={classes.alertBox}>
-		<h5>{selectedRoomName}</h5>
+      <Alert icon={false} variant="outlined" className={classes.alertBox}>
+        <h5>{selectedRoomName}</h5>
         <Button size="large" onClick={onClickEnterRoom}>
           Enter
         </Button>
