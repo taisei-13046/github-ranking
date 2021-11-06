@@ -8,18 +8,21 @@ import { githubProvider } from "../../firebase"
 import { UserGithubContext } from '../../App';
 
 const useStyles = makeStyles({
+	root: {
+		backgroundColor: "#e9f9ff",
+	},
 	logindark: {
 		textAlign: "center",
-		height: "900px",
+		height: "717px",
 		background: "#e9f9ff",
 		backgroundSize: "cover",
 		position: "relative",
 	},
 	title: {
-		fontSize: "150px"
+		fontSize: "125px"
 	},
 	logindrakform: {
-		height: "750px",
+		height: "700px",
 		maxWidth: "800px",
 		width: "90%",
 		backgroundColor: "#1e2833",
@@ -27,7 +30,7 @@ const useStyles = makeStyles({
 		borderRadius: "50%",
 		transform: "translate(-50%,-50%)",
 		position: "absolute",
-		top: "45%",
+		top: "50%",
 		left: "50%",
 		color: "#ff9100",
 		boxShadow: "3px 3px 4px rgba(0,0,0,0.2)"
@@ -85,8 +88,7 @@ export const Home = (props) => {
 	}
 
 	return (
-		<div>
-
+		<div className={classes.root}>
 			<div className={classes.logindark}>
 				<div className={classes.logindrakform}>
 					<div className={classes.illustrasion}>
