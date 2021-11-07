@@ -11,11 +11,18 @@ import { RoomInfoContext } from "../../App";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import dateFormat from "dateformat";
+import gold from "../../img/gold.png"
+import silber from "../../img/silber.png"
+import brown from "../../img/brown.png"
 
 const useStyles = makeStyles({
   tableStyle: {
     height: "100px",
   },
+  imgSize: {
+    width: "35px",
+    height: "35px"
+  }
 });
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -114,6 +121,9 @@ export const RankingTable = () => {
                     scope="row"
                     className={classes.tableStyle}
                   >
+                  {index == 0 && <img src={gold} className={classes.imgSize} />}
+                  {index == 1 && <img src={silber} className={classes.imgSize} />}
+                  {index == 2 && <img src={brown} className={classes.imgSize} />}
                     {index + 1}位: {data.githubId}
                   </StyledTableCell>
                 ) : (
