@@ -21,7 +21,9 @@ const useStyles = makeStyles({
   },
   imgSize: {
     width: "35px",
-    height: "35px"
+    height: "35px",
+    marginRight: "5px",
+    marginBottom: "7px"
   }
 });
 
