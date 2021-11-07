@@ -47,7 +47,6 @@ export const RankingTable = () => {
   var oneWeekAgoDate = new Date();
   var date = oneWeekAgoDate.getDate();
   oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - date);
-  console.log(oneWeekAgoDate)
 
   useEffect(() => {
     const GetGithubData = async () => {

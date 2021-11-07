@@ -16,7 +16,6 @@ const App = () => {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser);
         setUserEmail(authUser.email);
       }
     });

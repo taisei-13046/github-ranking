@@ -8,13 +8,11 @@ import { makeStyles } from '@mui/styles'
 const useStyles = makeStyles({
 	logindark: {
 		textAlign: "center",
-		height: "400px",
-		background: "#e9f9ff",
-		backgroundSize: "cover",
+		height: "350px",
 		position: "relative",
 	},
 	logindrakform: {
-		maxWidth: "700px",
+		maxWidth: "600px",
 		width: "90%",
 		backgroundColor: "#ffffff",
 		padding: "40px",
@@ -82,11 +80,9 @@ export const CreateRoom = () => {
 			roomName: createRoomName,
 			members: [githubId]
 		})
-		console.log(roomInfo)
 	}
 
 	return (
-
 		<div className={classes.logindark}>
 			<div className={classes.logindrakform}>
 				<div className={classes.illustrasion}>
