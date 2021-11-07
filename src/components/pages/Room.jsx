@@ -8,8 +8,8 @@ import { RoomList } from "../organisms/RoomList";
 
 const useStyles = makeStyles({
   backgraound: {
-    height: "100%",
-		background: "#e9f9ff",
+    height: "657px",
+		backgroundColor: "#e9f9ff",
 		backgroundSize: "cover",
   }
 })

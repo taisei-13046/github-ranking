@@ -8,21 +8,18 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   logindark: {
     textAlign: "center",
-    height: "500px",
-    background: "#e9f9ff",
-    backgroundSize: "cover",
     position: "relative",
     maxWidth: "100%",
+    marginTop: "125px"
   },
   logindrakform: {
-    maxWidth: "700px",
+    maxWidth: "600px",
     width: "90%",
     backgroundColor: "#ffff",
     padding: "40px",
     borderRadius: "50%",
     transform: "translate(-50%,-50%)",
     position: "absolute",
-    top: "25%",
     left: "50%",
     color: "#ff9100",
     boxShadow: "3px 3px 4px rgba(0,0,0,0.2)",

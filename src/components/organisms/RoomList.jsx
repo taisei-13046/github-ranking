@@ -9,8 +9,7 @@ import { RoomAlert } from "../moleclues/RoomAlert";
 
 const useStyles = makeStyles({
   roomList: {
-    height:"100vh",
-    marginTop: "100px",
+    marginTop: "50px",
     textAlign: "center"
   },
   eachRoom: {
@@ -18,11 +17,11 @@ const useStyles = makeStyles({
   },
   roomTitle: {
     marginButtom: "5px",
-    fontSize: "50px"
+    fontSize: "30px"
   },
   buttonStyle: {
-    width: "400px",
-    height: "75px",
+    width: "300px",
+    height: "60px",
   },
 });
 
@@ -64,7 +63,7 @@ export const RoomList = () => {
 
   return (
     <div className={classes.roomList}>
-      <h2 className={classes.roomTitle}>Your Room</h2>
+      <h4 className={classes.roomTitle}>Your Room</h4>
       {alertOpenFlag && !confirmAlert ? (
       <RoomAlert setConfirmAlert={setConfirmAlert} setAlertOpenFlag={setAlertOpenFlag} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList}/>
       ): (
