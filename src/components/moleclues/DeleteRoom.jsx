@@ -29,7 +29,6 @@ const useStyles = makeStyles({
 export const DeleteRoom = (props) => {
 	const {setConfirmAlert, selectedRoomName, setSelectedRoomName, setRoomList } = props;
 	const { githubId } = useContext(UserGithubContext);
-	const [roomSuperUser, setRoomSuperUser] = useState("")
 	const classes = useStyles()
 
 	const onClickDeleteYes = async () => {
