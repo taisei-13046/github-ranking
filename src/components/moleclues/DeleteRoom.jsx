@@ -36,8 +36,7 @@ export const DeleteRoom = (props) => {
 		await docRef.get().then((querySnapshot) => {
 			querySnapshot.docs.map(async (doc) => {
 				const roomData = doc.data();
-				console.log(roomData)
-				if (roomData.superUser == githubId) {
+				if (roomData.superUser === githubId) {
 					db.collection("room")
 						.doc(`${selectedRoomName}`)
 						.delete()
