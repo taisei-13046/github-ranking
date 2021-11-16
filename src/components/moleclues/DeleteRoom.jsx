@@ -1,6 +1,6 @@
 import { Alert, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserGithubContext } from '../../App';
 import { db } from "../../firebase"
 
@@ -29,27 +29,39 @@ const useStyles = makeStyles({
 export const DeleteRoom = (props) => {
 	const {setConfirmAlert, selectedRoomName, setSelectedRoomName, setRoomList } = props;
 	const { githubId } = useContext(UserGithubContext);
+	const [roomSuperUser, setRoomSuperUser] = useState("")
 	const classes = useStyles()
 
 	const onClickDeleteYes = async () => {
-		db.collection("room")
-			.doc(`${selectedRoomName}`)
-			.delete()
-			.then(() => {
-				setSelectedRoomName("");
-			});
-		var tmpArray = [];
 		const docRef = db.collection("room");
 		await docRef.get().then((querySnapshot) => {
 			querySnapshot.docs.map((doc) => {
 			const roomData = doc.data();
-			if (roomData.invitePeople.includes(githubId)) {
-				tmpArray.push(roomData.roomName);
-			}
+			setRoomSuperUser(roomData.superUser)
 			});
 		});
-		setRoomList(tmpArray);
-		setConfirmAlert(false)
+		if (roomSuperUser === githubId) {
+			db.collection("room")
+				.doc(`${selectedRoomName}`)
+				.delete()
+				.then(() => {
+					setSelectedRoomName("");
+				});
+			var tmpArray = [];
+			await docRef.get().then((querySnapshot) => {
+				querySnapshot.docs.map((doc) => {
+				const roomData = doc.data();
+				if (roomData.members.includes(githubId)) {
+					tmpArray.push(roomData.roomName);
+				}
+				});
+			});
+			setRoomList(tmpArray);
+			setConfirmAlert(false)
+		}else{
+			alert("管理者以外はroomを削除することはできません")
+			setConfirmAlert(false)
+		}
 	}
 
 	return (

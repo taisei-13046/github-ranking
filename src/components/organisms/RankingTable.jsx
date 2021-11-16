@@ -53,9 +53,9 @@ export const RankingTable = () => {
   const [githubData, setGithubData] = useState([]);
   const classes = useStyles();
 
-  var oneWeekAgoDate = new Date();
-  var date = oneWeekAgoDate.getDate();
-  oneWeekAgoDate.setDate(oneWeekAgoDate.getDate() - date);
+  var current = new Date();
+  var first = current.getDate() - current.getDay();
+  var oneWeekAgoDate = new Date(current.setDate(first))
 
   useEffect(() => {
     const GetGithubData = async () => {
@@ -68,6 +68,7 @@ export const RankingTable = () => {
                 `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_SECRET_KEY}`
               )
               .then(async (res) => {
+                console.log(res)
                 const oneWeekCommitCount = await res.data.items.filter(
                   (item) =>
                     new Date(item.commit.committer.date).getTime() >=
@@ -123,9 +124,9 @@ export const RankingTable = () => {
                     scope="row"
                     className={classes.tableStyle}
                   >
-                  {index == 0 && <img src={gold} className={classes.imgSize} />}
-                  {index == 1 && <img src={silber} className={classes.imgSize} />}
-                  {index == 2 && <img src={brown} className={classes.imgSize} />}
+                  {index === 0 && <img src={gold} className={classes.imgSize} />}
+                  {index === 1 && <img src={silber} className={classes.imgSize} />}
+                  {index === 2 && <img src={brown} className={classes.imgSize} />}
                     {index + 1}位: {data.githubId}
                   </StyledTableCell>
                 ) : (

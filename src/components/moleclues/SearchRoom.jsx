@@ -74,11 +74,12 @@ export const SearchRoom = (props) => {
         const roomData = doc.data();
         if (
           searchRoomName === roomData.roomName &&
-          roomData.invitePeople.includes(githubId)
+          roomData.members.includes(githubId)
         ) {
           setRoomInfo({
             roomName: roomData.roomName,
-            members: roomData.invitePeople,
+            superUser: roomData.superUser,
+            members: roomData.members,
           });
           history.push("/ranking");
         }
