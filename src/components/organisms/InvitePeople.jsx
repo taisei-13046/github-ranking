@@ -1,7 +1,7 @@
 import { Button, createMuiTheme, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useContext, useState } from "react";
-import { RoomInfoContext } from "../../App";
+import { RoomInfoContext, UserGithubContext } from "../../App";
 import { db } from "../../firebase";
 import { DeleteMemberAlert } from "../moleclues/DeleteMemberAlert";
 
@@ -22,6 +22,12 @@ const useStyle = makeStyles({
   memberListDiv: {
     marginTop: "15px",
     color: "black",
+  },
+  superUserListButton: {
+    contrastText: "black",
+    width: "200px",
+    height: "50px",
+    color: "red",
   },
   memberListButton: {
     contrastText: "black",
@@ -45,22 +51,30 @@ const customTheme = createMuiTheme({
 
 export const InvitePeople = () => {
   const classes = useStyle();
+  const { githubId } = useContext(UserGithubContext);
   const [invitePeopleName, setInvitePeopleName] = useState("");
   const { roomInfo, setRoomInfo } = useContext(RoomInfoContext);
   const [deleteAlertName, setDeleteAlertName] = useState("");
 
   const onClickInvite = () => {
-    roomInfo.members.push(invitePeopleName);
-    setRoomInfo({
-      roomName: roomInfo.roomName,
-      members: roomInfo.members,
-    });
-    const docRef = db.collection("room").doc(`${roomInfo.roomName}`);
-    docRef.set({
-      roomName: roomInfo.roomName,
-      invitePeople: roomInfo.members,
-    });
-    setInvitePeopleName("");
+    if (roomInfo.superUser === githubId) {
+      roomInfo.members.push(invitePeopleName);
+      setRoomInfo({
+        roomName: roomInfo.roomName,
+        superUser: roomInfo.superUser,
+        members: roomInfo.members,
+      });
+      const docRef = db.collection("room").doc(`${roomInfo.roomName}`);
+      docRef.set({
+        roomName: roomInfo.roomName,
+        superUser: roomInfo.superUser,
+        members: roomInfo.members,
+      });
+      setInvitePeopleName("");
+    }else{
+      alert('管理者以外はinvite権限はありません')
+      setInvitePeopleName("");
+    }
   };
 
   return (
@@ -80,6 +94,17 @@ export const InvitePeople = () => {
       <Button size="large" variant="contained" onClick={onClickInvite}>
         Invite
       </Button>
+      <h2 className={classes.memberStyle}>Host</h2>
+      <div className={classes.memberWhole}>
+        <Button
+          variant="outlined"
+          className={classes.superUserListButton}
+          theme={customTheme}
+          color="error"
+        >
+          {roomInfo.superUser}
+        </Button>
+      </div>
       <h2 className={classes.memberStyle}>Member</h2>
       {deleteAlertName ? (
         <DeleteMemberAlert
@@ -90,11 +115,11 @@ export const InvitePeople = () => {
         <></>
       )}
       <div className={classes.memberWhole}>
-        {roomInfo.members.map((member, index) => (
+        {roomInfo.members.map((member) => (
           <div className={classes.memberListDiv}>
             <Button
               variant="outlined"
-              key={index}
+              key={member}
               className={classes.memberListButton}
               onClick={() => setDeleteAlertName(member)}
               theme={customTheme}

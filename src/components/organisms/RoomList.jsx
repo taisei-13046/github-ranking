@@ -6,18 +6,17 @@ import { db } from "../../firebase";
 import { DeleteRoom } from "../moleclues/DeleteRoom";
 import { RoomAlert } from "../moleclues/RoomAlert";
 
-
 const useStyles = makeStyles({
   roomList: {
     marginTop: "50px",
-    textAlign: "center"
+    textAlign: "center",
   },
   eachRoom: {
     marginTop: "25px",
   },
   roomTitle: {
     marginButtom: "5px",
-    fontSize: "30px"
+    fontSize: "30px",
   },
   buttonStyle: {
     width: "300px",
@@ -27,22 +26,21 @@ const useStyles = makeStyles({
 
 const customTheme = createMuiTheme({
   typography: {
-      // fontFamily: "Indie Flower",
-      fontSize: 25,
-      button: {
-          textTransform: "none"
-      }
-  }
+    // fontFamily: "Indie Flower",
+    fontSize: 25,
+    button: {
+      textTransform: "none",
+    },
+  },
 });
 
 export const RoomList = () => {
-
   const { githubId } = useContext(UserGithubContext);
   const classes = useStyles();
   const [roomList, setRoomList] = useState([]);
-  const [selectedRoomName, setSelectedRoomName] = useState("")
-  const [alertOpenFlag, setAlertOpenFlag] = useState(false)
-  const [confirmAlert, setConfirmAlert] = useState(false)
+  const [selectedRoomName, setSelectedRoomName] = useState("");
+  const [alertOpenFlag, setAlertOpenFlag] = useState(false);
+  const [confirmAlert, setConfirmAlert] = useState(false);
 
   useEffect(() => {
     const GetRoomList = async () => {
@@ -51,7 +49,7 @@ export const RoomList = () => {
       await docRef.get().then((querySnapshot) => {
         querySnapshot.docs.map((doc) => {
           const roomData = doc.data();
-          if (roomData.invitePeople.includes(githubId)) {
+          if (roomData.members.includes(githubId)) {
             tmpArray.push(roomData.roomName);
           }
         });
@@ -65,13 +63,25 @@ export const RoomList = () => {
     <div className={classes.roomList}>
       <h4 className={classes.roomTitle}>Your Room</h4>
       {alertOpenFlag && !confirmAlert ? (
-      <RoomAlert setConfirmAlert={setConfirmAlert} setAlertOpenFlag={setAlertOpenFlag} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList}/>
-      ): (
-      <></>
+        <RoomAlert
+          setConfirmAlert={setConfirmAlert}
+          setAlertOpenFlag={setAlertOpenFlag}
+          selectedRoomName={selectedRoomName}
+          setSelectedRoomName={setSelectedRoomName}
+          setRoomList={setRoomList}
+        />
+      ) : (
+        <></>
       )}
       {confirmAlert ? (
-        <DeleteRoom setConfirmAlert={setConfirmAlert} selectedRoomName={selectedRoomName} setSelectedRoomName={setSelectedRoomName} setRoomList={setRoomList} roomList={roomList} />
-      ): (
+        <DeleteRoom
+          setConfirmAlert={setConfirmAlert}
+          selectedRoomName={selectedRoomName}
+          setSelectedRoomName={setSelectedRoomName}
+          setRoomList={setRoomList}
+          roomList={roomList}
+        />
+      ) : (
         <></>
       )}
       {roomList.map((room, index) => (
@@ -84,8 +94,8 @@ export const RoomList = () => {
               className={classes.buttonStyle}
               style={{ color: "#1976d2", backgroundColor: "white" }}
               onClick={() => {
-                setSelectedRoomName(room)
-                setAlertOpenFlag(true)
+                setSelectedRoomName(room);
+                setAlertOpenFlag(true);
               }}
             >
               {room}

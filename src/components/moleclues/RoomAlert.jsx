@@ -42,11 +42,12 @@ export const RoomAlert = (props) => {
         const roomData = doc.data();
         if (
           selectedRoomName === roomData.roomName &&
-          roomData.invitePeople.includes(githubId)
+          roomData.members.includes(githubId)
         ) {
           setRoomInfo({
             roomName: roomData.roomName,
-            members: roomData.invitePeople,
+            superUser: roomData.superUser,
+            members: roomData.members,
           });
           history.push("/ranking");
         }

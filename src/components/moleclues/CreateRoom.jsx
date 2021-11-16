@@ -64,20 +64,22 @@ const useStyles = makeStyles({
 export const CreateRoom = () => {
 	const [createRoomName, setCreateRoomName] = useState("");
 	const {githubId}= useContext(UserGithubContext)
-	const {roomInfo, setRoomInfo} = useContext(RoomInfoContext)
+	const {setRoomInfo} = useContext(RoomInfoContext)
 	const history = useHistory()
 	const classes=useStyles();
 
 	const onClickCreateRoom = () => {
 		db.collection("room").doc(`${createRoomName}`).set({
 			roomName: createRoomName,
-			invitePeople: [githubId]
+			superUser: githubId,
+			members: [githubId]
 		}).then(() => {
 			setCreateRoomName("")
 			history.push('/ranking')
 		})
 		setRoomInfo({
 			roomName: createRoomName,
+			superUser: githubId,
 			members: [githubId]
 		})
 	}
