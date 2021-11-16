@@ -29,39 +29,37 @@ const useStyles = makeStyles({
 export const DeleteRoom = (props) => {
 	const {setConfirmAlert, selectedRoomName, setSelectedRoomName, setRoomList } = props;
 	const { githubId } = useContext(UserGithubContext);
-	const [roomSuperUser, setRoomSuperUser] = useState("")
 	const classes = useStyles()
 
 	const onClickDeleteYes = async () => {
 		const docRef = db.collection("room");
 		await docRef.get().then((querySnapshot) => {
-			querySnapshot.docs.map((doc) => {
-			const roomData = doc.data();
-			setRoomSuperUser(roomData.superUser)
+			querySnapshot.docs.map(async (doc) => {
+				const roomData = doc.data();
+				if (roomData.superUser === githubId) {
+					db.collection("room")
+						.doc(`${selectedRoomName}`)
+						.delete()
+						.then(() => {
+							setSelectedRoomName("");
+						});
+					var tmpArray = [];
+					await docRef.get().then((querySnapshot) => {
+						querySnapshot.docs.map((doc) => {
+						const roomData = doc.data();
+						if (roomData.members.includes(githubId)) {
+							tmpArray.push(roomData.roomName);
+						}
+						});
+					});
+					setRoomList(tmpArray);
+					setConfirmAlert(false)
+				}else{
+					alert("管理者以外はroomを削除することはできません")
+					setConfirmAlert(false)
+				}
 			});
 		});
-		if (roomSuperUser === githubId) {
-			db.collection("room")
-				.doc(`${selectedRoomName}`)
-				.delete()
-				.then(() => {
-					setSelectedRoomName("");
-				});
-			var tmpArray = [];
-			await docRef.get().then((querySnapshot) => {
-				querySnapshot.docs.map((doc) => {
-				const roomData = doc.data();
-				if (roomData.members.includes(githubId)) {
-					tmpArray.push(roomData.roomName);
-				}
-				});
-			});
-			setRoomList(tmpArray);
-			setConfirmAlert(false)
-		}else{
-			alert("管理者以外はroomを削除することはできません")
-			setConfirmAlert(false)
-		}
 	}
 
 	return (

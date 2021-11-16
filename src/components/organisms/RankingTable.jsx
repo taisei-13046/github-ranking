@@ -68,7 +68,6 @@ export const RankingTable = () => {
                 `https://api.github.com/search/commits?q=author:${member}&sort=committer-date&order=desc?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_SECRET_KEY}`
               )
               .then(async (res) => {
-                console.log(res)
                 const oneWeekCommitCount = await res.data.items.filter(
                   (item) =>
                     new Date(item.commit.committer.date).getTime() >=
